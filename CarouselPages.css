@@ -1,0 +1,68 @@
+
+.carousel {
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .carousel-inner {
+    border-radius: 15px;
+  }
+  
+  .carousel-item {
+    height: 90vh; /* Set the height of the carousel item */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Carousel indicators styling */
+  .carousel-indicators[data-bs-target] {
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    border: none;
+  }
+  
+  .carousel-indicators .active {
+    background-color: rgba(255, 255, 255, 0.9); /* Fully opaque white for the active indicator */
+  }
+  
+  /* Text styling for carousel */
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff; /* White text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
+  }
+  
+  .carousel-caption p {
+    font-size: 1.2rem;
+    color: #ffffff; /* White text */
+    margin-bottom: 20px;
+  }
+  
+  /* Button styling */
+  .shop-now-btn,
+  .book-services-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745; /* Green color */
+    color: #ffffff; /* White text */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .shop-now-btn:hover,
+  .book-services-btn:hover {
+    background-color: #218838; /* Darker green color on hover */
+  }
+  
