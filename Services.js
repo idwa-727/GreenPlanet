@@ -4,8 +4,8 @@ import img3 from './images/img3.jpg';
 
 const styles = {
   container: {
-    width: '100vw',
-    height: '100vh',
+    width: '100%',
+    minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -77,22 +77,29 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
-  },
-  bookButton: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#007bff',
     marginRight: '10px',
+    marginBottom: '10px',
+    outline: 'none',
+  },  bookButton: {
+    backgroundColor: '#28a745',
   },
   reviewButton: {
     backgroundColor: '#dc3545',
   },
 };
-
 function GardeningServices() {
   const [selectedLocation, setSelectedLocation] = useState('Lahore');
 
+  // Function to book gardening service
+  const bookGardeningService = () => {
+    // Your booking logic here
+    alert('Booking gardening service...');
+  };
+
   return (
     <div style={styles.container}>
-      <h1 style={{ ...styles.title }}>Gardening Services</h1>
+      <h1 style={styles.title}>Gardening Services</h1>
       <select
         style={styles.locationSelect}
         value={selectedLocation}
@@ -108,30 +115,9 @@ function GardeningServices() {
           <h2 style={styles.serviceName}>Garden Design</h2>
           <p style={styles.serviceProvider}>Provider: Green Thumb Landscapes</p>
           <p style={styles.serviceDescription}>Transform your outdoor space with personalized garden designs tailored to your preferences and lifestyle.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
+          <button style={{ ...styles.button, ...styles.bookButton }} onClick={bookGardeningService}>Book Service</button>
         </li>
-        <li style={styles.serviceItem}>
-          <h2 style={styles.serviceName}>Lawn Care</h2>
-          <p style={styles.serviceProvider}>Provider: Fresh Green Lawns</p>
-          <p style={styles.serviceDescription}>Keep your lawn healthy and lush with professional lawn care services including mowing, fertilizing, and weed control.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
-        </li>
-        <li style={styles.serviceItem}>
-          <h2 style={styles.serviceName}>Tree Trimming</h2>
-          <p style={styles.serviceProvider}>Provider: Tree Masters</p>
-          <p style={styles.serviceDescription}>Maintain the health and aesthetics of your trees with expert tree trimming and pruning services.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
-        </li>
-        <li style={styles.serviceItem}>
-          <h2 style={styles.serviceName}>Pest Control</h2>
-          <p style={styles.serviceProvider}>Provider: Bug Busters</p>
-          <p style={styles.serviceDescription}>Protect your garden from pests and diseases with effective pest control solutions tailored to your specific needs.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
-        </li>
+        {/* Add more gardening services here */}
       </ul>
     </div>
   );
@@ -140,9 +126,15 @@ function GardeningServices() {
 function AgricultureServices() {
   const [selectedLocation, setSelectedLocation] = useState('Lahore');
 
+  // Function to book agriculture service
+  const bookAgricultureService = () => {
+    // Your booking logic here
+    alert('Booking agriculture service...');
+  };
+
   return (
     <div style={styles.container}>
-      <h1 style={{ ...styles.title }}>Agriculture Services</h1>
+      <h1 style={styles.title}>Agriculture Services</h1>
       <select
         style={styles.locationSelect}
         value={selectedLocation}
@@ -158,30 +150,9 @@ function AgricultureServices() {
           <h2 style={styles.serviceName}>Soil Testing</h2>
           <p style={styles.serviceProvider}>Provider: AgriLab Solutions</p>
           <p style={styles.serviceDescription}>Ensure optimal crop growth and yield by analyzing your soil's nutrient levels and pH, with recommendations for appropriate fertilizers and soil amendments.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
+          <button style={{ ...styles.button, ...styles.bookButton }} onClick={bookAgricultureService}>Book Service</button>
         </li>
-        <li style={styles.serviceItem}>
-          <h2 style={styles.serviceName}>Crop Consulting</h2>
-          <p style={styles.serviceProvider}>Provider: CropCare Consulting</p>
-          <p style={styles.serviceDescription}>Maximize your farm's productivity and profitability with expert crop consulting services, including crop selection, planting strategies, and pest management.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
-        </li>
-        <li style={styles.serviceItem}>
-          <h2 style={styles.serviceName}>Irrigation Solutions</h2>
-          <p style={styles.serviceProvider}>Provider: AquaAgro Solutions</p>
-          <p style={styles.serviceDescription}>Optimize water usage and ensure efficient crop growth with customized irrigation solutions tailored to your farm's needs and environmental conditions.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
-        </li>
-        <li style={styles.serviceItem}>
-          <h2 style={styles.serviceName}>Harvesting Services</h2>
-          <p style={styles.serviceProvider}>Provider: Harvest Helpers</p>
-          <p style={styles.serviceDescription}>Efficiently harvest your crops with professional harvesting services to ensure timely and quality harvests.</p>
-          <button style={{ ...styles.button, ...styles.bookButton }}>Book Service</button>
-          <button style={{ ...styles.button, ...styles.reviewButton }}>Review Service</button>
-        </li>
+        {/* Add more agriculture services here */}
       </ul>
     </div>
   );
@@ -195,13 +166,17 @@ function Services() {
     agriculture: <AgricultureServices />,
   };
 
+  const selectedService = serviceComponents[category];
+
   return (
     <div>
-      {serviceComponents[category] || <div>No services found.</div>}
+      {selectedService || <div>No services found.</div>}
     </div>
   );
 }
 
 export default Services;
+
+
 
 

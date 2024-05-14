@@ -1,219 +1,183 @@
-import React, { useState } from 'react';
-import { FaUser, FaLock } from 'react-icons/fa';
+// import React, { useState } from "react";
+// import Axios from "axios";
+// import { Link, useNavigate } from "react-router-dom";
 
-const styles = {
-  container: {
-    maxWidth: '800px',
-    margin: '50px auto',
-    padding: '40px',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  },
-  title: {
-    fontSize: '2.5rem',
-    color: '#333',
-    marginBottom: '30px',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  inputGroup: {
-    marginBottom: '20px',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    border: '1px solid #ccc',
-    borderRadius: '6px',
-    paddingLeft: '15px',
-  },
-  input: {
-    flex: '1',
-    padding: '15px',
-    fontSize: '1rem',
-    border: 'none',
-    outline: 'none',
-    backgroundColor: '#fff',
-  },
-  icon: {
-    marginRight: '15px',
-    fontSize: '1.2rem',
-    color: '#555',
-  },
-  button: {
-    padding: '12px 24px',
-    fontSize: '1rem',
-    border: 'none',
-    borderRadius: '6px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  },
-  radioGroup: {
-    marginBottom: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  radioLabel: {
-    margin: '0 10px',
-    fontSize: '1rem',
-    color: '#333',
-  },
-};
+// const LoginPage = () => {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [role, setRole] = useState("customer");
+
+//   const navigate = useNavigate();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+    
+//     // Depending on the selected role, construct the login URL
+//     let loginURL = "";
+//     if (role === "admin") {
+//       loginURL = "http://localhost:3000/auth/admin/login";
+//     } else {
+//       loginURL = "http://localhost:3000/auth/login";
+//     }
+
+//     try {
+//       const response = await Axios.post(loginURL, {
+//         email,
+//         password,
+//       });
+      
+//       if (response.status === 200) {
+//         // Assuming the server sends a 'message' upon successful login
+//         if (response.data.message === 'Login successful') {
+//           navigate('/');
+//         } else {
+//           // Handle invalid login response from the server
+//           console.error('Invalid login response:', response.data);
+//         }
+//       } else {
+//         // Handle unexpected status code
+//         console.error('Unexpected status code:', response.status);
+//       }
+//     } catch (error) {
+//       console.error('Login error:', error);
+//     }
+//   };
+
+//   return (
+//     <div className="sign-up-container">
+//       <form className="sign-up-form" onSubmit={handleSubmit}>
+//         <h2>Login</h2>
+
+//         <label htmlFor="email">Email:</label>
+//         <input
+//           type="email"
+//           autoComplete="off"
+//           placeholder="Email"
+//           value={email}
+//           onChange={(e) => setEmail(e.target.value)}
+//         />
+
+//         <label htmlFor="password">Password:</label>
+//         <input
+//           type="password"
+//           placeholder="******"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+
+//         <label htmlFor="role">Login As:</label>
+//         <select value={role} onChange={(e) => setRole(e.target.value)}>
+//           <option value="customer">Customer</option>
+//           <option value="service_provider_agriculture">Service Provider (Agriculture)</option>
+//           <option value="service_provider_gardening">Service Provider (Gardening)</option>
+//           <option value="admin">Admin</option>
+//         </select>
+
+//         <button type="submit">Login</button>
+//         <Link to="/forgotPassword">Forgot Password?</Link>
+//         <p>Don't Have an Account? <Link to="/signup">Sign Up</Link></p> 
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default LoginPage;
+// LoginPage.js
+import React, { useState } from 'react';
+import Axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const [userType, setUserType] = useState('customer');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('customer');
+  const navigate = useNavigate();
 
-  const handleUserTypeChange = (type) => {
-    setUserType(type);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let loginURL = '';
+    if (role === 'admin') {
+      loginURL = 'http://localhost:3000/auth/admin/login';
+    } else {
+      loginURL = 'http://localhost:3000/auth/login';
+    }
 
-  const renderCustomerFields = () => (
-    <>
-      <div style={styles.inputGroup}>
-        <FaUser style={styles.icon} />
-        <input
-          style={styles.input}
-          type="email"
-          placeholder="Email"
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaLock style={styles.icon} />
-        <input
-          style={styles.input}
-          type="password"
-          placeholder="Password"
-          required
-        />
-      </div>
-    </>
-  );
+    try {
+      const response = await Axios.post(loginURL, {
+        email,
+        password,
+      });
 
-  const renderAdminFields = () => (
-    <>
-      <div style={styles.inputGroup}>
-        <FaUser style={styles.icon} />
-        <input
-          style={styles.input}
-          type="email"
-          placeholder="Admin Email"
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaLock style={styles.icon} />
-        <input
-          style={styles.input}
-          type="password"
-          placeholder="Admin Password"
-          required
-        />
-      </div>
-    </>
-  );
-
-  const renderServiceProviderFields = () => (
-    <>
-      <div style={styles.inputGroup}>
-        <FaUser style={styles.icon} />
-        <input
-          style={styles.input}
-          type="email"
-          placeholder="Service Provider Email"
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaLock style={styles.icon} />
-        <input
-          style={styles.input}
-          type="password"
-          placeholder="Service Provider Password"
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <label style={{ marginRight: '10px' }}>Domain:</label>
-        <select style={styles.input} required>
-          <option value="">Select Domain</option>
-          <option value="gardening">Gardening</option>
-          <option value="agriculture">Agriculture</option>
-        </select>
-      </div>
-    </>
-  );
-
-  const renderFieldsByUserType = () => {
-    switch (userType) {
-      case 'admin':
-        return renderAdminFields();
-      case 'serviceProvider':
-        return renderServiceProviderFields();
-      default:
-        return renderCustomerFields();
+      if (response.status === 200 && response.data.message === 'Login successful') {
+        // Redirect user to the respective dashboard based on role
+        switch (role) {
+          case 'admin':
+            navigate('/dashboard/admin');
+            break;
+          case 'customer':
+            navigate('/dashboard/customer');
+            break;
+          case 'service_provider_gardening':
+            navigate('/dashboard/service-provider/gardening');
+            break;
+          case 'service_provider_agriculture':
+            navigate('/dashboard/service-provider/agriculture');
+            break;
+          default:
+            break;
+        }
+      } else {
+        console.error('Invalid login response:', response.data);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
     }
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Login</h1>
-      <form style={styles.form}>
-        <div style={styles.radioGroup}>
-          <label style={styles.radioLabel}>
-            <input
-              type="radio"
-              name="userType"
-              value="customer"
-              checked={userType === 'customer'}
-              onChange={() => handleUserTypeChange('customer')}
-            />
-            Customer
-          </label>
-          <label style={styles.radioLabel}>
-            <input
-              type="radio"
-              name="userType"
-              value="admin"
-              checked={userType === 'admin'}
-              onChange={() => handleUserTypeChange('admin')}
-            />
-            Admin
-          </label>
-          <label style={styles.radioLabel}>
-            <input
-              type="radio"
-              name="userType"
-              value="serviceProvider"
-              checked={userType === 'serviceProvider'}
-              onChange={() => handleUserTypeChange('serviceProvider')}
-            />
-            Service Provider
-          </label>
-        </div>
-        {renderFieldsByUserType()}
-        <button
-          style={styles.button}
-          type="submit"
-          onMouseOver={(e) => (e.target.style.backgroundColor = '#0056b3')}
-          onMouseOut={(e) => (e.target.style.backgroundColor = '#007bff')}
-        >
-          Login
-        </button>
+    <div className="sign-up-container">
+      <form className="sign-up-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          autoComplete="off"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          placeholder="******"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <label htmlFor="role">Login As:</label>
+        <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value="customer">Customer</option>
+          <option value="service_provider_agriculture">Service Provider (Agriculture)</option>
+          <option value="service_provider_gardening">Service Provider (Gardening)</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Login</button>
+        <Link to="/forgot-password">Forgot Password?</Link>
+        <p>Don't Have an Account? <Link to="/signup">Sign Up</Link></p> 
       </form>
     </div>
   );
 };
 
 export default LoginPage;
+
+
+
+
+
+
+
+
+
+
+
 

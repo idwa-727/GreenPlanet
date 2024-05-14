@@ -1,299 +1,152 @@
-import React, { useState } from 'react';
-import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+// import React, { useState } from "react";
+// import "./SignupPage.css";
+// import Axios from "axios";
+// import { Link, useNavigate } from "react-router-dom";
 
-const styles = {
-  container: {
-    maxWidth: '800px',
-    margin: '50px auto',
-    padding: '40px',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  },
-  title: {
-    fontSize: '2.5rem',
-    color: '#333',
-    marginBottom: '30px',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  inputGroup: {
-    marginBottom: '20px',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    border: '1px solid #ccc',
-    borderRadius: '6px',
-    paddingLeft: '15px',
-  },
-  input: {
-    flex: '1',
-    padding: '15px',
-    fontSize: '1rem',
-    border: 'none',
-    outline: 'none',
-    backgroundColor: '#fff',
-  },
-  icon: {
-    marginRight: '15px',
-    fontSize: '1.2rem',
-    color: '#555',
-  },
-  button: {
-    padding: '12px 24px',
-    fontSize: '1rem',
-    border: 'none',
-    borderRadius: '6px',
-    backgroundColor: '#28a745',
-    color: '#fff',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    marginTop: '20px',
-  },
-  radioGroup: {
-    marginBottom: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  radioLabel: {
-    margin: '0 10px',
-    fontSize: '1rem',
-    color: '#333',
-  },
-};
+// const SignupPage = () => {
+//   const [username, setUsername] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [role, setRole] = useState("customer"); // Default role is customer
+
+//   const navigate = useNavigate();
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     Axios.post("http://localhost:3000/auth/signup", {
+//       username,
+//       email,
+//       password,
+//       role
+//     }).then(response => {
+//         if(response.data.message === 'User registered successfully') {
+//             navigate('/login');
+//         }
+//     }).catch(err => {
+//         console.log(err)
+//     });
+//   };
+
+//   return (
+//     <div className="sign-up-container">
+//       <form className="sign-up-form" onSubmit={handleSubmit}>
+//         <h2>Sign Up</h2>
+//         <label htmlFor="username">Username:</label>
+//         <input
+//           type="text"
+//           placeholder="Username"
+//           onChange={(e) => setUsername(e.target.value)}
+//         />
+
+//         <label htmlFor="email">Email:</label>
+//         <input
+//           type="email"
+//           autoComplete="off"
+//           placeholder="Email"
+//           onChange={(e) => setEmail(e.target.value)}
+//         />
+
+//         <label htmlFor="password">Password:</label>
+//         <input
+//           type="password"
+//           placeholder="******"
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+
+//         {/* Role selection */}
+//         <label htmlFor="role">Sign Up As:</label>
+//         <select value={role} onChange={(e) => setRole(e.target.value)}>
+//           <option value="customer">Customer</option>
+//           <option value="service_provider_gardening">Service Provider (Gardening)</option>
+//           <option value="service_provider_agriculture">Service Provider (Agriculture)</option>
+//           <option value="admin">Admin</option>
+//         </select>
+
+//         <button type="submit">Sign Up</button>
+//         <p>Have an Account? <Link to="/login">Login</Link></p> 
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default SignupPage;
+import React, { useState } from "react";
+import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import './SignupPage.css'
 
 const SignupPage = () => {
-  const [userType, setUserType] = useState('customer');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [serviceType, setServiceType] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("customer");
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleServiceTypeChange = (e) => setServiceType(e.target.value);
+  const navigate = useNavigate();
 
-  const renderCustomerForm = () => (
-    <div>
-      <div style={styles.inputGroup}>
-        <FaUser style={styles.icon} />
-        <input
-          style={styles.input}
-          type="text"
-          placeholder="Customer Username"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaEnvelope style={styles.icon} />
-        <input
-          style={styles.input}
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaLock style={styles.icon} />
-        <input
-          style={styles.input}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
-      </div>
-    </div>
-  );
-
-  const renderAdminForm = () => (
-    <div>
-      <div style={styles.inputGroup}>
-        <FaUser style={styles.icon} />
-        <input
-          style={styles.input}
-          type="text"
-          placeholder="Admin Username"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaEnvelope style={styles.icon} />
-        <input
-          style={styles.input}
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaLock style={styles.icon} />
-        <input
-          style={styles.input}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
-      </div>
-    </div>
-  );
-
-  const renderServiceProviderForm = () => (
-    <div>
-      <div style={styles.inputGroup}>
-        <FaUser style={styles.icon} />
-        <input
-          style={styles.input}
-          type="text"
-          placeholder="Service Provider Username"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaEnvelope style={styles.icon} />
-        <input
-          style={styles.input}
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <FaLock style={styles.icon} />
-        <input
-          style={styles.input}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
-      </div>
-      <div style={styles.inputGroup}>
-        <label style={styles.radioLabel}>
-          <input
-            type="radio"
-            name="serviceType"
-            value="gardening"
-            checked={serviceType === 'gardening'}
-            onChange={handleServiceTypeChange}
-          />
-          Gardening
-        </label>
-        <label style={styles.radioLabel}>
-          <input
-            type="radio"
-            name="serviceType"
-            value="agriculture"
-            checked={serviceType === 'agriculture'}
-            onChange={handleServiceTypeChange}
-          />
-          Agriculture
-        </label>
-      </div>
-    </div>
-  );
-
-  const renderSignupForm = () => {
-    switch (userType) {
-      case 'admin':
-        return renderAdminForm();
-      case 'serviceProvider':
-        return renderServiceProviderForm();
-      default:
-        return renderCustomerForm();
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username || !email || !password || (userType === 'serviceProvider' && !serviceType)) {
-      alert('All fields are mandatory!');
-      return;
+    try {
+      const response = await Axios.post("http://localhost:3000/auth/signup", {
+        username,
+        email,
+        password,
+        role
+      });
+      if (response.status === 201) {
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      // Handle specific error cases, e.g., display error message to the user
     }
-    console.log('Submitted:', { userType, username, email, password, serviceType });
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Signup</h1>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <div style={styles.radioGroup}>
-          <label style={styles.radioLabel}>
-            <input
-              type="radio"
-              name="userType"
-              value="customer"
-              checked={userType === 'customer'}
-              onChange={() => setUserType('customer')}
-            />
-            Customer
-          </label>
-          <label style={styles.radioLabel}>
-            <input
-              type="radio"
-              name="userType"
-              value="admin"
-              checked={userType === 'admin'}
-              onChange={() => setUserType('admin')}
-            />
-            Admin
-          </label>
-          <label style={styles.radioLabel}>
-            <input
-              type="radio"
-              name="userType"
-              value="serviceProvider"
-              checked={userType === 'serviceProvider'}
-              onChange={() => setUserType('serviceProvider')}
-            />
-            Service Provider
-          </label>
-        </div>
-        {renderSignupForm()}
-        <button
-          style={styles.button}
-          type="submit"
-          onMouseOver={(e) => (e.target.style.backgroundColor = '#218838')}
-          onMouseOut={(e) => (e.target.style.backgroundColor = '#28a745')}
-        >
-          Signup
-        </button>
+    <div className="sign-up-container">
+      <form className="sign-up-form" onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          placeholder="******"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <label htmlFor="role">Sign Up As:</label>
+        <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value="customer">Customer</option>
+          <option value="service_provider_gardening">Service Provider (Gardening)</option>
+          <option value="service_provider_agriculture">Service Provider (Agriculture)</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit">Sign Up</button>
+        <p>Have an Account? <Link to="/login">Login</Link></p>
       </form>
-      <p style={{ marginTop: '20px' }}>
-        Already registered? <Link to="/login">Login here</Link>
-      </p>
     </div>
   );
 };
 
 export default SignupPage;
+
+
 
 
 
