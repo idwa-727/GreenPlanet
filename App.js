@@ -152,6 +152,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} /> 
           <Route path="/" element={<CarouselPages />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* <Route path="/dashboard/admin" element={<AdminDashboard />} /> */}
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
           <Route path="/dashboard/customer" element={<CustomerDashboard />} />
           <Route path="/dashboard/service-provider/gardening" element={<ServiceProviderGardeningDashboard />} />
